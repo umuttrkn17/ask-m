@@ -56,7 +56,7 @@
     .section{padding:18px;}
     .title{font-size:18px; margin:0 0 10px;}
     .muted{color:var(--muted); margin:0}
-    #letter{ line-height:1.75; font-size:16px; margin:0; white-space:pre-wrap; }
+    #letter{ line-height:1.85; font-size:16px; margin:0; white-space:pre-wrap; }
 
     /* Gallery */
     .gallery{display:grid; grid-template-columns: 1fr; gap:12px;}
@@ -161,7 +161,7 @@
     <div class="grid">
       <div class="card section">
         <h3 class="title">Mektubum</h3>
-        <p class="muted">Yavaş yavaş yazsın diye ayarladım…</p>
+        <p class="muted">Yavaş yavaş yazsın diye ayarladım...</p>
         <hr style="border:0;border-top:1px solid rgba(0,0,0,.08); margin:12px 0;">
         <p id="letter"></p>
       </div>
@@ -203,34 +203,52 @@
   <audio id="bgm" src="music.mp3" loop></audio>
 
   <script>
-    // === SENİN AYARLARIN ===
+    // === AYARLAR ===
     const PASSWORD = "1201";
     const RELATION_START = "2026-01-12"; // 12 Ocak 2026
 
+    // MEKTUP: tarihsiz, duygusal
     const LETTER_TEXT =
-`01.01.2026… İlk tanışma.
-02.01.2026… İlk buluşma, gülle geldim 🌹
+`Bazı insanlar vardır…
+Hayatına sessizce girer
+ama içindeki her şeyi değiştirir.
 
-Senin Ice Americano'n…
-11.01.2026… Makarna + Türk kahvesi…
-Tavlada ben kazandım 😎
+Sen öyle geldin.
+Gülüşünle,
+bakışınla,
+“ice americano” deyişinle…
 
-12.01.2026…
-Çiçekle geldim 💐
-“Biz olalım mı?” dedim.
-İyi ki “evet” oldun ❤️
+Zaman bazen yavaşladı,
+bazen hızlandı
+ama sen hep aynı kaldın.
+Gerçek.
+Sıcak.
+Güzel.
 
-15.01.2026…
-Erik Çiçeği Lego date 🌸🧩`;
+Birlikte güldük,
+yan yana sustuk,
+aynı masada kahve içtik,
+aynı anda heyecanlandık.
 
-    const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"]; // img klasörüne ekle
+Ve bir gün…
+Kalbim ağzımdayken
+“biz olalım mı?” dedim.
 
+İyi ki oldun.
+İyi ki buradayız.
+İyi ki bu hikâye
+seninle yazılıyor ❤️`;
+
+    // Galeri fotoğrafları
+    const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"]; // ekle
+
+    // Timeline: tarihli detaylar burada
     const EVENTS = [
-      { icon:"01", title:"İlk tanışma", desc:"01.01.2026 — Yeni yıl, yeni başlangıç ✨" },
-      { icon:"02", title:"İlk buluşma", desc:"02.01.2026 — Gülle geldim 🌹" },
-      { icon:"☕", title:"Kahve date", desc:"Ice Americano (klasik 😌)" },
-      { icon:"11", title:"Yemek date", desc:"11.01.2026 — Makarna yedik 🍝 Türk kahvesi içtik ☕ Tavlada ben kazandım 😎" },
-      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Çiçekle geldim 💐 Biz olduk ❤️" },
+      { icon:"01", title:"İlk tanışma", desc:"01.01.2026 — Yeni yıl, yeni başlangıç bir soğuk uşak akşamı ve soulmate'te ilk görüş ✨" },
+      { icon:"02", title:"İlk buluşma", desc:"02.01.2026 — Zamanın nasıl geçtiğini anlayamadık koko yemeye yetişemedik." },
+      { icon:"09", title:"Kahve date", desc:"09.01.2026 —Ice Americano (klasik 😌) Hasta olsak bile soğuk içilicek o kahve" },
+      { icon:"11", title:"Yemek date", desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavlada ben kazandım 😎" },
+      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Toplu bir tatlı date  in ardından tatlı yiyelim tatlı konuşalım havasına mütakip çıkma teklidi ve bizzz " },
       { icon:"15", title:"Lego date", desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık 🧩" },
       { icon:"∞", title:"Devamı…", desc:"Bu daha başlangıç 😈❤️" },
     ];
@@ -247,7 +265,7 @@ Erik Çiçeği Lego date 🌸🧩`;
     function unlock(){
       const v = (pass.value || "").trim();
       if(v !== PASSWORD){
-        err.textContent = "Yanlış şifre 😅";
+        err.textContent = "Yanlış şifre ";
         pass.focus();
         return;
       }
@@ -260,11 +278,10 @@ Erik Çiçeği Lego date 🌸🧩`;
     pass.addEventListener("keydown", (e)=>{ if(e.key==="Enter") unlock(); });
 
     document.getElementById("hint").addEventListener("click", ()=>{
-      err.textContent = "İpucu: O günün günü + ayı 😉";
+      err.textContent = "İpucu: A❤️U";
       pass.focus();
     });
 
-    // --- Başlat ---
     function startAll(){
       typeWriter(LETTER_TEXT);
       initCounter();
@@ -351,7 +368,7 @@ Erik Çiçeği Lego date 🌸🧩`;
 
       btnYes.addEventListener("click", ()=>{
         launchConfetti();
-        alert("Artık resmen benim sevgilimsin 💍❤️");
+        alert("Artık resmen benim sevgilimsin aşkımızın sonsuza kadar sürmesi dileğiyle hayatım 💍❤️");
       });
 
       function kac(){
@@ -392,7 +409,7 @@ Erik Çiçeği Lego date 🌸🧩`;
       });
     }
 
-    // Mini konfeti
+    // Konfeti
     function launchConfetti(){
       const n = 110;
       for(let i=0;i<n;i++){
