@@ -18,6 +18,13 @@
 <button id="btnNo" onmouseover="run()">Hayır</button>
 
 <script>
+    const sifre = "1402"; // BURAYI DEGISTIR (ör: ilk tanışma günü/ay)
+  const girilen = prompt("Bu sayfa sadece kalbimin sahibine ❤️\nŞifreyi gir:");
+
+  if (girilen !== sifre) {
+    document.body.innerHTML = "<h2>Yanlış şifre 😅</h2><p>İpucu: İlk tanışma günü 😉</p>";
+    throw new Error("Wrong password");
+  }
 let msg = "Seni tanıdığım gün, debug etmeyi bıraktım...";
 let i=0;
 setInterval(()=>{
@@ -37,3 +44,4 @@ function run(){
 </script>
 </body>
 </html>
+
