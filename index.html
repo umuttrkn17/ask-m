@@ -1,47 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Benim Yengem ❤️</title>
   <style>
-    body {font-family: Arial; text-align:center; background:#ffe6f0;}
-    h1 {margin-top:80px;}
-    #btnNo {position:absolute;}
+    body { font-family: Arial, sans-serif; text-align: center; background: #ffe6f0; margin: 0; }
+    h1 { margin-top: 80px; padding: 0 16px; }
+    #text { padding: 0 16px; font-size: 18px; }
+    button { padding: 12px 18px; font-size: 18px; border: 0; border-radius: 12px; cursor: pointer; margin: 10px; }
+    #btnNo { position: absolute; }
   </style>
 </head>
+
 <body>
+  <h1>Hayatımın en güzel hatası sensin ❤️</h1>
+  <p id="text"></p>
 
-<h1>Hayatımın en güzel hatası sensin ❤️</h1>
-<p id="text"></p>
+  <button id="btnYes">Evet</button>
+  <button id="btnNo">Hayır</button>
 
-<button onclick="yes()">Evet</button>
-<button id="btnNo" onmouseover="run()">Hayır</button>
+  <script>
+    // 1) ŞİFRE KONTROL (GARANTİ)
+    const SIFRE = "1402"; // <-- BURAYI DEGISTIR
+    const girilen = prompt("Bu sayfa sadece kalbimin sahibine ❤️\nŞifreyi gir:");
 
-<script>
-    const sifre = "1402"; // BURAYI DEGISTIR (ör: ilk tanışma günü/ay)
-  const girilen = prompt("Bu sayfa sadece kalbimin sahibine ❤️\nŞifreyi gir:");
+    // İptal'e basarsa da kapansın
+    if (girilen === null || girilen !== SIFRE) {
+      document.body.innerHTML =
+        "<h2 style='margin-top:80px'>Yanlış şifre 😅</h2>" +
+        "<p>İpucu: İlk tanışma günü 😉</p>";
+      throw new Error("Wrong password");
+    }
 
-  if (girilen !== sifre) {
-    document.body.innerHTML = "<h2>Yanlış şifre 😅</h2><p>İpucu: İlk tanışma günü 😉</p>";
-    throw new Error("Wrong password");
-  }
-let msg = "Seni tanıdığım gün, debug etmeyi bıraktım...";
-let i=0;
-setInterval(()=>{
-  if(i<msg.length){
-    text.innerHTML += msg[i++];
-  }
-},100);
+    // 2) TYPEWRITER MESAJ
+    const textEl = document.getElementById("text");
+    const msg = "Seni tanıdığım gün, debug etmeyi bıraktım...";
+    let i = 0;
 
-function yes(){
-  alert("Artık resmen benim sevgilimsin 💍");
-}
+    const timer = setInterval(() => {
+      textEl.textContent += msg[i] || "";
+      i++;
+      if (i > msg.length) clearInterval(timer);
+    }, 90);
 
-function run(){
-  btnNo.style.left = Math.random()*300+"px";
-  btnNo.style.top = Math.random()*300+"px";
-}
-</script>
+    // 3) BUTONLAR
+    const btnYes = document.getElementById("btnYes");
+    const btnNo  = document.getElementById("btnNo");
+
+    btnYes.addEventListener("click", () => {
+      alert("Artık resmen benim sevgilimsin 💍");
+    });
+
+    function kac() {
+      // Ekran boyutuna göre kaçsın (mobil uyumlu)
+      const maxX = Math.max(20, window.innerWidth - 120);
+      const maxY = Math.max(20, window.innerHeight - 80);
+      btnNo.style.left = Math.floor(Math.random() * maxX) + "px";
+      btnNo.style.top  = Math.floor(Math.random() * maxY) + "px";
+    }
+
+    // Hayır butonu üstüne gelince / dokununca kaçsın
+    btnNo.addEventListener("mouseover", kac);
+    btnNo.addEventListener("touchstart", (e) => { e.preventDefault(); kac(); }, { passive: false });
+
+    // İlk konum
+    btnNo.style.left = "55%";
+    btnNo.style.top  = "320px";
+  </script>
 </body>
 </html>
-
