@@ -154,6 +154,7 @@
       <div class="row">
         <span class="pill">✨ Özel sürüm: 14 Şubat</span>
         <span class="pill" id="counterPill">⏳ ...</span>
+        <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
       </div>
     </div>
 
@@ -198,6 +199,9 @@
     <footer>Yiğenimmmm tarafından ❤️ ile</footer>
   </div>
 
+  <!-- Müzik -->
+  <audio id="bgm" src="music.mp3" loop></audio>
+
   <script>
     // === SENİN AYARLARIN ===
     const PASSWORD = "1201";
@@ -208,16 +212,16 @@
 02.01.2026… İlk buluşma, gülle geldim 🌹
 
 Senin Ice Americano'n…
-Makarna + Türk kahvesi…
+11.01.2026… Makarna + Türk kahvesi…
 Tavlada ben kazandım 😎
-
-Ve sonra…
-Erik Çiçeği Lego date 🌸🧩
 
 12.01.2026…
 Çiçekle geldim 💐
 “Biz olalım mı?” dedim.
-İyi ki “evet” oldun ❤️`;
+İyi ki “evet” oldun ❤️
+
+15.01.2026…
+Erik Çiçeği Lego date 🌸🧩`;
 
     const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"]; // img klasörüne ekle
 
@@ -225,9 +229,9 @@ Erik Çiçeği Lego date 🌸🧩
       { icon:"01", title:"İlk tanışma", desc:"01.01.2026 — Yeni yıl, yeni başlangıç ✨" },
       { icon:"02", title:"İlk buluşma", desc:"02.01.2026 — Gülle geldim 🌹" },
       { icon:"☕", title:"Kahve date", desc:"Ice Americano (klasik 😌)" },
-      { icon:"🍝", title:"Yemek date", desc:"Makarna yedik, Türk kahvesi içtik ☕ Tavlada ben kazandım 😎" },
-      { icon:"🧩", title:"Lego date", desc:"Erik Çiçeği 🌸 Lego yaptık" },
+      { icon:"11", title:"Yemek date", desc:"11.01.2026 — Makarna yedik 🍝 Türk kahvesi içtik ☕ Tavlada ben kazandım 😎" },
       { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Çiçekle geldim 💐 Biz olduk ❤️" },
+      { icon:"15", title:"Lego date", desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık 🧩" },
       { icon:"∞", title:"Devamı…", desc:"Bu daha başlangıç 😈❤️" },
     ];
     // ======================
@@ -267,6 +271,7 @@ Erik Çiçeği Lego date 🌸🧩
       initGallery();
       initTimeline();
       initQuestion();
+      initMusic();
     }
 
     // Typewriter
@@ -362,6 +367,29 @@ Erik Çiçeği Lego date 🌸🧩
       btnNo.style.left = "55%";
       btnNo.style.top  = "210px";
       btnNo.style.position = "absolute";
+    }
+
+    // Müzik
+    function initMusic(){
+      const musicBtn = document.getElementById("musicBtn");
+      const bgm = document.getElementById("bgm");
+      let on = false;
+
+      musicBtn.addEventListener("click", async ()=>{
+        try{
+          if(!on){
+            await bgm.play();
+            on = true;
+            musicBtn.textContent = "⏸️ Durdur";
+          }else{
+            bgm.pause();
+            on = false;
+            musicBtn.textContent = "🎵 Müzik";
+          }
+        }catch(e){
+          alert("Tarayıcı müziği engelledi. Bir kez daha tıkla 😊");
+        }
+      });
     }
 
     // Mini konfeti
