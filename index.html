@@ -35,10 +35,10 @@
       background: linear-gradient(135deg, rgba(255,59,122,.14), rgba(255,122,168,.14));
       border:1px solid rgba(255,59,122,.25);
       color:#b4003d;
-      font-weight:600; font-size:14px;
+      font-weight:700; font-size:14px;
     }
     .btn{
-      border:0; cursor:pointer; font-weight:800;
+      border:0; cursor:pointer; font-weight:900;
       padding:12px 14px; border-radius:14px;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
       color:white; box-shadow: 0 10px 18px rgba(255,59,122,.25);
@@ -56,8 +56,9 @@
     .section{padding:18px;}
     .title{font-size:18px; margin:0 0 10px;}
     .muted{color:var(--muted); margin:0}
-    #letter{ line-height:1.65; font-size:16px; margin:0; white-space:pre-wrap; }
+    #letter{ line-height:1.75; font-size:16px; margin:0; white-space:pre-wrap; }
 
+    /* Gallery */
     .gallery{display:grid; grid-template-columns: 1fr; gap:12px;}
     .imgbox{
       border-radius:18px; overflow:hidden; border:1px solid rgba(0,0,0,.06);
@@ -72,6 +73,7 @@
     }
     .dot.active{background:rgba(255,59,122,.95)}
 
+    /* Timeline */
     .tl{display:grid; gap:10px;}
     .tlitem{
       padding:12px 12px; border-radius:16px;
@@ -79,18 +81,20 @@
       display:flex; gap:10px; align-items:flex-start;
     }
     .badge{
-      min-width:40px; height:40px; border-radius:14px;
+      min-width:44px; height:44px; border-radius:16px;
       display:grid; place-items:center;
       background:linear-gradient(135deg, rgba(255,59,122,.18), rgba(255,122,168,.18));
       border:1px solid rgba(255,59,122,.25);
       font-weight:900; color:#b4003d;
     }
 
-    .qwrap{position:relative; padding:18px;}
+    /* Question */
+    .qwrap{position:relative; padding:18px; min-height:260px;}
     .qbox{display:grid; gap:10px; place-items:center; text-align:center;}
     .qbtns{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;}
-    #btnNo{position:absolute; left:55%; top:250px;}
+    #btnNo{position:absolute; left:55%; top:210px;}
 
+    /* Password overlay */
     .overlay{
       position:fixed; inset:0; display:grid; place-items:center;
       background: radial-gradient(900px 600px at 30% 15%, #fff7fb, #ffd1e3);
@@ -106,14 +110,14 @@
       backdrop-filter: blur(10px);
       text-align:center;
     }
-    .lock h2{margin:6px 0 6px;}
-    .lock p{margin:0 0 12px; color:var(--muted);}
+    .lock h2{margin:6px 0 6px; font-size:30px;}
+    .lock p{margin:0 0 12px; color:var(--muted); font-size:16px;}
     .inp{
       width:100%; padding:14px 14px; font-size:16px;
       border-radius:16px; border:1px solid rgba(0,0,0,.12);
       outline:none;
     }
-    .err{color:#b4003d; font-weight:800; min-height:22px; margin-top:10px;}
+    .err{color:#b4003d; font-weight:900; min-height:22px; margin-top:10px;}
     .small{font-size:13px; color:var(--muted); margin-top:10px;}
     footer{margin-top:16px; color:var(--muted); text-align:center; font-size:13px;}
   </style>
@@ -128,16 +132,20 @@
       </div>
       <h2>Şifreyi gir ❤️</h2>
       <p>İpucu: Bizim başlangıcımız 😉</p>
-      <input class="inp" id="pass" type="password" placeholder="1201" inputmode="numeric" />
+
+      <input class="inp" id="pass" type="password" placeholder="Şifre" inputmode="numeric" autocomplete="off" />
+
       <div class="row" style="justify-content:center;">
         <button class="btn" id="unlock">Giriş</button>
         <button class="btn secondary" id="hint">İpucu</button>
       </div>
+
       <div class="err" id="err"></div>
       <div class="small">Yanlış şifre girilirse sayfa açılmaz 😈</div>
     </div>
   </div>
 
+  <!-- Site -->
   <div class="wrap" id="app" style="display:none;">
     <div class="card hero">
       <h1>Hayatımın en güzel hatası sensin ❤️</h1>
@@ -146,7 +154,6 @@
       <div class="row">
         <span class="pill">✨ Özel sürüm: 14 Şubat</span>
         <span class="pill" id="counterPill">⏳ ...</span>
-        <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
       </div>
     </div>
 
@@ -188,36 +195,50 @@
       <button class="btn secondary" id="btnNo">Hayır</button>
     </div>
 
-    <footer>Made with ❤️ — Yiğenimmmm onaylı 😈</footer>
+    <footer>Yiğenimmmm tarafından ❤️ ile</footer>
   </div>
 
-  <audio id="music" preload="auto" loop></audio>
-
   <script>
-    // ====== AYARLAR ======
-    const PASSWORD = "1201";                 // Şifre
-    const RELATION_START = "2026-01-12";     // 12/01/2026 -> 2026-01-12 (12 Ocak 2026)
-    const LETTER_TEXT =
-`12.01.2026…
-İçimde “tamam” dediğim gün.
+    // === SENİN AYARLARIN ===
+    const PASSWORD = "1201";
+    const RELATION_START = "2026-01-12"; // 12 Ocak 2026
 
-Seni tanıdığım an,
-hayatın bütün hataları güzelleşti.
-İyi ki varsın ❤️`;
+    const LETTER_TEXT =
+`01.01.2026… İlk tanışma.
+02.01.2026… İlk buluşma, gülle geldim 🌹
+
+Senin Ice Americano'n…
+Makarna + Türk kahvesi…
+Tavlada ben kazandım 😎
+
+Ve sonra…
+Erik Çiçeği Lego date 🌸🧩
+
+12.01.2026…
+Çiçekle geldim 💐
+“Biz olalım mı?” dedim.
+İyi ki “evet” oldun ❤️`;
 
     const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"]; // img klasörüne ekle
+
     const EVENTS = [
-      { icon:"12", title:"Başlangıç", desc:"12.01.2026 — Biz olduk ❤️" },
-      { icon:"♡",  title:"Bir anı",     desc:"Buraya en sevdiğin anı yaz" },
-      { icon:"∞",  title:"Sonsuz",      desc:"Devamı bizde… 😄" },
+      { icon:"01", title:"İlk tanışma", desc:"01.01.2026 — Yeni yıl, yeni başlangıç ✨" },
+      { icon:"02", title:"İlk buluşma", desc:"02.01.2026 — Gülle geldim 🌹" },
+      { icon:"☕", title:"Kahve date", desc:"Ice Americano (klasik 😌)" },
+      { icon:"🍝", title:"Yemek date", desc:"Makarna yedik, Türk kahvesi içtik ☕ Tavlada ben kazandım 😎" },
+      { icon:"🧩", title:"Lego date", desc:"Erik Çiçeği 🌸 Lego yaptık" },
+      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Çiçekle geldim 💐 Biz olduk ❤️" },
+      { icon:"∞", title:"Devamı…", desc:"Bu daha başlangıç 😈❤️" },
     ];
-    // =====================
+    // ======================
 
     // --- Şifre ekranı ---
     const overlay = document.getElementById("overlay");
     const app = document.getElementById("app");
     const pass = document.getElementById("pass");
     const err  = document.getElementById("err");
+
+    pass.value = ""; // autofill engelle
 
     function unlock(){
       const v = (pass.value || "").trim();
@@ -233,21 +254,22 @@ hayatın bütün hataları güzelleşti.
 
     document.getElementById("unlock").addEventListener("click", unlock);
     pass.addEventListener("keydown", (e)=>{ if(e.key==="Enter") unlock(); });
+
     document.getElementById("hint").addEventListener("click", ()=>{
-      err.textContent = "İpucu: 12.01 😉";
+      err.textContent = "İpucu: O günün günü + ayı 😉";
       pass.focus();
     });
 
-    // --- Uygulama ---
+    // --- Başlat ---
     function startAll(){
       typeWriter(LETTER_TEXT);
       initCounter();
       initGallery();
       initTimeline();
       initQuestion();
-      initMusic();
     }
 
+    // Typewriter
     function typeWriter(text){
       const el = document.getElementById("letter");
       el.textContent = "";
@@ -256,9 +278,10 @@ hayatın bütün hataları güzelleşti.
         el.textContent += text[i] || "";
         i++;
         if(i > text.length) clearInterval(t);
-      }, 28);
+      }, 22);
     }
 
+    // Sayaç (gün/saat/dk)
     function initCounter(){
       const pill = document.getElementById("counterPill");
       const start = new Date(RELATION_START + "T00:00:00");
@@ -274,6 +297,7 @@ hayatın bütün hataları güzelleşti.
       setInterval(tick, 60000);
     }
 
+    // Galeri
     function initGallery(){
       const imgEl = document.getElementById("gimg");
       const dots = document.getElementById("dots");
@@ -294,9 +318,10 @@ hayatın bütün hataları güzelleşti.
       });
 
       set(0);
-      setInterval(()=>set(idx+1), 4200);
+      setInterval(()=>set(idx+1), 4500);
     }
 
+    // Timeline
     function initTimeline(){
       const tl = document.getElementById("timeline");
       tl.innerHTML = "";
@@ -314,6 +339,7 @@ hayatın bütün hataları güzelleşti.
       });
     }
 
+    // Soru + konfeti
     function initQuestion(){
       const btnYes = document.getElementById("btnYes");
       const btnNo  = document.getElementById("btnNo");
@@ -325,7 +351,7 @@ hayatın bütün hataları güzelleşti.
 
       function kac(){
         const maxX = Math.max(20, window.innerWidth - 140);
-        const maxY = Math.max(20, window.innerHeight - 90);
+        const maxY = Math.max(20, window.innerHeight - 120);
         btnNo.style.left = Math.floor(Math.random()*maxX) + "px";
         btnNo.style.top  = Math.floor(Math.random()*maxY) + "px";
       }
@@ -334,35 +360,13 @@ hayatın bütün hataları güzelleşti.
       btnNo.addEventListener("touchstart", (e)=>{ e.preventDefault(); kac(); }, {passive:false});
 
       btnNo.style.left = "55%";
-      btnNo.style.top  = "250px";
+      btnNo.style.top  = "210px";
       btnNo.style.position = "absolute";
     }
 
-    function initMusic(){
-      const btn = document.getElementById("musicBtn");
-      const audio = document.getElementById("music");
-      let on = false;
-
-      // Müzik eklemek istersen:
-      // Repo'ya "music.mp3" yükle ve şu satırı aç:
-      // audio.src = "music.mp3";
-
-      btn.addEventListener("click", async ()=>{
-        try{
-          if(!audio.src || audio.src.endsWith("/")) {
-            alert("Müzik için repo'ya music.mp3 ekleyip audio.src = 'music.mp3' yap 🙂");
-            return;
-          }
-          if(!on){ await audio.play(); on=true; btn.textContent="⏸️ Müzik"; }
-          else { audio.pause(); on=false; btn.textContent="🎵 Müzik"; }
-        }catch(e){
-          alert("Tarayıcı müziği engelledi. Bir daha tıkla 🙂");
-        }
-      });
-    }
-
+    // Mini konfeti
     function launchConfetti(){
-      const n = 120;
+      const n = 110;
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
@@ -372,20 +376,20 @@ hayatın bütün hataları güzelleşti.
         s.style.height= (10 + Math.random()*14)+ "px";
         s.style.borderRadius="6px";
         s.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 70%)`;
-        s.style.opacity = "0.9";
+        s.style.opacity = "0.95";
         s.style.transform = `rotate(${Math.random()*360}deg)`;
         s.style.zIndex = 9998;
         document.body.appendChild(s);
 
-        const dur = 1400 + Math.random()*1200;
-        const drift = (Math.random()*2 - 1) * 120;
+        const dur = 1300 + Math.random()*1400;
+        const drift = (Math.random()*2 - 1) * 140;
 
         s.animate([
           { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
-          { transform:`translate(${drift}px, ${window.innerHeight+120}px) rotate(${720+Math.random()*720}deg)`, opacity:1 }
+          { transform:`translate(${drift}px, ${window.innerHeight+140}px) rotate(${720+Math.random()*720}deg)`, opacity:1 }
         ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
 
-        setTimeout(()=>s.remove(), dur+80);
+        setTimeout(()=>s.remove(), dur+100);
       }
     }
   </script>
