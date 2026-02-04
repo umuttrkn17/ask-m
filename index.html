@@ -240,38 +240,69 @@ Kalbim ağzımdayken
 seninle yazılıyor ❤️`;
 
     // Galeri fotoğrafları
-    const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"]; // ekle
+    const PHOTOS = ["img/1.jpg","img/2.jpg","img/3.jpg"];
 
-    // Timeline: tarihli detaylar burada
+    // Timeline: akıcı metinli
     const EVENTS = [
-      { icon:"01", title:"İlk tanışma", desc:"01.01.2026 — Yeni yıl, yeni başlangıç bir soğuk uşak akşamı ve soulmate'te ilk görüş ✨" },
-      { icon:"02", title:"İlk buluşma", desc:"02.01.2026 — Zamanın nasıl geçtiğini anlayamadık koko yemeye yetişemedik." },
-      { icon:"09", title:"Kahve date", desc:"09.01.2026 —Ice Americano (klasik 😌) Hasta olsak bile soğuk içilicek o kahve" },
-      { icon:"11", title:"Yemek date", desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavlada ben kazandım 😎" },
-      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Toplu bir tatlı date  in ardından tatlı yiyelim tatlı konuşalım havasına mütakip çıkma teklidi ve bizzz " },
-      { icon:"15", title:"Lego date", desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık 🧩" },
-      { icon:"∞", title:"Devamı…", desc:"Bu daha başlangıç 😈❤️" },
+      {
+        icon:"01",
+        title:"İlk tanışma",
+        desc:"01.01.2026 — Soğuk bir Uşak akşamı… Soulmate’te ilk kez göz göze geldik ✨"
+      },
+      {
+        icon:"02",
+        title:"İlk buluşma",
+        desc:"02.01.2026 — Zaman su gibi aktı… Koko yemeye bile yetişemedik 😄"
+      },
+      {
+        icon:"09",
+        title:"Kahve date",
+        desc:"09.01.2026 — Ice Americano (klasik 😌). Hasta olsak bile o soğuk kahve içilecekti."
+      },
+      {
+        icon:"11",
+        title:"Yemek date",
+        desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavla… ve ben kazandım 😎"
+      },
+      {
+        icon:"12",
+        title:"Açıkma teklifi",
+        desc:"12.01.2026 — Toplu tatlı date’in ardından “tatlı yiyelim tatlı konuşalım” dedim… ve biz olduk 💐❤️"
+      },
+      {
+        icon:"15",
+        title:"Lego date",
+        desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık… resmen çocuk gibi mutlu olduk 🧩"
+      },
+      {
+        icon:"∞",
+        title:"Devamı…",
+        desc:"Bu daha başlangıç 😈❤️"
+      },
     ];
-    // ======================
 
-    // --- Şifre ekranı ---
+    // --- Elemanlar ---
     const overlay = document.getElementById("overlay");
     const app = document.getElementById("app");
     const pass = document.getElementById("pass");
     const err  = document.getElementById("err");
+    const bgm  = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    let musicOn = false;
 
     pass.value = ""; // autofill engelle
 
     function unlock(){
       const v = (pass.value || "").trim();
       if(v !== PASSWORD){
-        err.textContent = "Yanlış şifre ";
+        err.textContent = "Yanlış şifre 😅 Bir daha dene";
         pass.focus();
         return;
       }
       overlay.style.display = "none";
       app.style.display = "block";
       startAll();
+      autoPlayMusic(); // ✅ Şifre doğruysa otomatik müzik
     }
 
     document.getElementById("unlock").addEventListener("click", unlock);
@@ -303,7 +334,7 @@ seninle yazılıyor ❤️`;
       }, 22);
     }
 
-    // Sayaç (gün/saat/dk)
+    // Sayaç
     function initCounter(){
       const pill = document.getElementById("counterPill");
       const start = new Date(RELATION_START + "T00:00:00");
@@ -368,7 +399,7 @@ seninle yazılıyor ❤️`;
 
       btnYes.addEventListener("click", ()=>{
         launchConfetti();
-        alert("Artık resmen benim sevgilimsin aşkımızın sonsuza kadar sürmesi dileğiyle hayatım 💍❤️");
+        alert("Artık resmen benim sevgilimsin… aşkımızın sonsuza kadar sürmesi dileğiyle 💍❤️");
       });
 
       function kac(){
@@ -386,27 +417,34 @@ seninle yazılıyor ❤️`;
       btnNo.style.position = "absolute";
     }
 
-    // Müzik
+    // Müzik butonu
     function initMusic(){
-      const musicBtn = document.getElementById("musicBtn");
-      const bgm = document.getElementById("bgm");
-      let on = false;
-
       musicBtn.addEventListener("click", async ()=>{
         try{
-          if(!on){
+          if(!musicOn){
             await bgm.play();
-            on = true;
+            musicOn = true;
             musicBtn.textContent = "⏸️ Durdur";
           }else{
             bgm.pause();
-            on = false;
+            musicOn = false;
             musicBtn.textContent = "🎵 Müzik";
           }
         }catch(e){
           alert("Tarayıcı müziği engelledi. Bir kez daha tıkla 😊");
         }
       });
+    }
+
+    // Şifre doğru girilince otomatik başlat
+    async function autoPlayMusic(){
+      try{
+        await bgm.play();
+        musicOn = true;
+        musicBtn.textContent = "⏸️ Durdur";
+      }catch(e){
+        // Bazı tarayıcılarda engel olabilir, butonla yine çalışır.
+      }
     }
 
     // Konfeti
