@@ -55,7 +55,6 @@
     .hero-heart{
       width:200px;
       height:200px;
-      object-fit:cover;
       margin-left:auto;
 
       clip-path: polygon(
@@ -71,6 +70,7 @@
         15% 60%
       );
 
+      overflow:hidden; /* ✅ içteki foto kırpılsın */
       border:2px solid rgba(255,122,168,.9);
       box-shadow: 0 10px 18px rgba(255,59,122,.28);
       background:#fff;
@@ -78,6 +78,12 @@
       animation: heartBeat 1.2s infinite ease-in-out;
       transform-origin:center;
       cursor:pointer;
+    }
+    .hero-heart img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform: scale(0.85); /* ✅ FOTOYU “UZAKLAŞTIR” (0.80–0.95 arası oynat) */
     }
     @keyframes heartBeat{
       0%   { transform: scale(1);   }
@@ -196,7 +202,7 @@
         🔒 Sadece kalbimin sahibine
       </div>
       <h2>Şifreyi gir ❤️</h2>
-      <p>İpucu: Bizim başlangıcımız 😉</p>
+      <p>İpucu: Araştır Düşün Bul</p>
 
       <input class="inp" id="pass" type="password" placeholder="Şifre" inputmode="numeric" autocomplete="off" />
 
@@ -221,8 +227,10 @@
         <span class="pill" id="counterPill">⏳ ...</span>
         <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
 
-        <!-- Kalp foto -->
-        <img src="img/kalp.jpeg" class="hero-heart" id="heroHeart" alt="Biz ❤️">
+        <!-- ✅ Kalp foto -->
+        <div class="hero-heart" id="heroHeart" title="Biz ❤️">
+          <img src="img/kalp.jpeg" alt="Biz ❤️">
+        </div>
       </div>
     </div>
 
@@ -366,7 +374,7 @@ seninle yazılıyor ❤️`;
       initQuestion();
       initMusic();
 
-      // ✅ ilk girişte konfeti
+      // ✅ ilk girişte konfeti (DAHA UZUN + DAHA YAVAŞ)
       launchConfettiSoft();
 
       // ✅ kalp attıkça minik kalpler
@@ -393,7 +401,7 @@ seninle yazılıyor ❤️`;
         const days = Math.floor(diff / (1000*60*60*24));
         const hrs  = Math.floor((diff / (1000*60*60)) % 24);
         const min  = Math.floor((diff / (1000*60)) % 60);
-        pill.textContent = `⏳ ${days} gün ${hrs} saat ${min} dk`;
+        pill.textContent = ⏳ ${days} gün ${hrs} saat ${min} dk;
       }
       tick();
       setInterval(tick, 60000);
@@ -444,7 +452,7 @@ seninle yazılıyor ❤️`;
       const btnNo  = document.getElementById("btnNo");
 
       btnYes.addEventListener("click", ()=>{
-        launchConfetti();
+        launchConfetti(); // ✅ Büyük konfeti (DAHA UZUN + YAVAŞ)
         alert("Artık resmen benim sevgilimsin… aşkımızın sonsuza kadar sürmesi dileğiyle 💍❤️");
       });
 
@@ -491,9 +499,9 @@ seninle yazılıyor ❤️`;
       }
     }
 
-    // ✅ İlk giriş konfeti (hafif)
+    // ✅ İlk giriş konfeti (hafif) — DAHA UZUN + YAVAŞ
     function launchConfettiSoft(){
-      const n = 70;
+      const n = 90; // biraz daha fazla
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
@@ -502,21 +510,23 @@ seninle yazılıyor ❤️`;
         s.style.width = (5 + Math.random()*6) + "px";
         s.style.height= (10 + Math.random()*14)+ "px";
         s.style.borderRadius="6px";
-        s.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 72%)`;
+        s.style.background = hsl(${Math.floor(Math.random()*360)}, 90%, 72%);
         s.style.opacity = "0.9";
-        s.style.transform = `rotate(${Math.random()*360}deg)`;
+        s.style.transform = rotate(${Math.random()*360}deg);
         s.style.zIndex = 9997;
         document.body.appendChild(s);
 
-        const dur = 1200 + Math.random()*1200;
-        const drift = (Math.random()*2 - 1) * 120;
+        // ✅ süre uzadı
+        const dur = 2600 + Math.random()*1800;  // eski ~1200-2400 idi
+        const drift = (Math.random()*2 - 1) * 180;
 
+        // ✅ yavaş düşüş: daha küçük easing
         s.animate([
-          { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
-          { transform:`translate(${drift}px, ${window.innerHeight+140}px) rotate(${540+Math.random()*540}deg)`, opacity:1 }
-        ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
+          { transform:translate(0,0) rotate(0deg), opacity:1 },
+          { transform:translate(${drift}px, ${window.innerHeight+180}px) rotate(${520+Math.random()*520}deg), opacity:1 }
+        ], { duration: dur, easing:"cubic-bezier(.15,.75,.15,1)" });
 
-        setTimeout(()=>s.remove(), dur+100);
+        setTimeout(()=>s.remove(), dur+120);
       }
     }
 
@@ -547,14 +557,14 @@ seninle yazılıyor ❤️`;
           const rot = (Math.random()*2 - 1) * 220;
           const scale = 0.8 + Math.random()*1.0;
 
-          const dur = 750 + Math.random()*500;
+          const dur = 900 + Math.random()*700;
 
           h.animate([
-            { transform:`translate(0,0) rotate(0deg) scale(${scale})`, opacity: 0.95 },
-            { transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale*0.7})`, opacity: 0 }
+            { transform:translate(0,0) rotate(0deg) scale(${scale}), opacity: 0.95 },
+            { transform:translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale*0.7}), opacity: 0 }
           ], { duration: dur, easing: "cubic-bezier(.2,.8,.2,1)" });
 
-          setTimeout(()=>h.remove(), dur+50);
+          setTimeout(()=>h.remove(), dur+60);
         }
       }
 
@@ -563,35 +573,34 @@ seninle yazılıyor ❤️`;
       heart.addEventListener("click", burst);
     }
 
-    // Konfeti (Evet'e basınca büyük)
+    // ✅ Konfeti (Evet'e basınca büyük) — DAHA UZUN + YAVAŞ
     function launchConfetti(){
-      const n = 110;
+      const n = 150; // daha dolu
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
         s.style.left = Math.random()*100 + "vw";
         s.style.top  = "-10px";
-        s.style.width = (6 + Math.random()*6) + "px";
-        s.style.height= (10 + Math.random()*14)+ "px";
+        s.style.width = (6 + Math.random()*7) + "px";
+        s.style.height= (10 + Math.random()*16)+ "px";
         s.style.borderRadius="6px";
-        s.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 70%)`;
+        s.style.background = hsl(${Math.floor(Math.random()*360)}, 90%, 70%);
         s.style.opacity = "0.95";
-        s.style.transform = `rotate(${Math.random()*360}deg)`;
+        s.style.transform = rotate(${Math.random()*360}deg);
         s.style.zIndex = 9998;
         document.body.appendChild(s);
 
-        const dur = 1300 + Math.random()*1400;
-        const drift = (Math.random()*2 - 1) * 140;
+        const dur = 3200 + Math.random()*2200; // eski ~1300-2700 idi
+        const drift = (Math.random()*2 - 1) * 220;
 
         s.animate([
-          { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
-          { transform:`translate(${drift}px, ${window.innerHeight+140}px) rotate(${720+Math.random()*720}deg)`, opacity:1 }
-        ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
+          { transform:translate(0,0) rotate(0deg), opacity:1 },
+          { transform:translate(${drift}px, ${window.innerHeight+220}px) rotate(${760+Math.random()*760}deg), opacity:1 }
+        ], { duration: dur, easing:"cubic-bezier(.15,.75,.15,1)" });
 
-        setTimeout(()=>s.remove(), dur+100);
+        setTimeout(()=>s.remove(), dur+140);
       }
     }
   </script>
 </body>
 </html>
-
