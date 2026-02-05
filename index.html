@@ -229,7 +229,7 @@
         🔒 Sadece kalbimin sahibine
       </div>
       <h2>Şifreyi gir ❤️</h2>
-      <p>İpucu: Bizim başlangıcımız 😉</p>
+      <p>İpucu: Bul Bakalımm 😉</p>
 
       <input class="inp" id="pass" type="password" placeholder="Şifre" inputmode="numeric" autocomplete="off" />
 
@@ -239,14 +239,14 @@
       </div>
 
       <div class="err" id="err"></div>
-      <div class="small">Yanlış şifre girilirse sayfa açılmaz 😈</div>
+      <div class="small">Yanlış şifre girilirse sayfa açılmaz </div>
     </div>
   </div>
 
   <!-- Site -->
   <div class="wrap" id="app" style="display:none;">
     <div class="card hero">
-      <h1>Hayatımın en güzel hatası sensin ❤️</h1>
+      <h1>Kalbimin en güzel hikâyesi sensin askımm ❤️</h1>
       <p class="sub">Bu sayfa sadece ikimiz için…</p>
 
       <div class="row">
@@ -280,10 +280,10 @@
           <div class="gctrl" id="dots"></div>
 
           <p class="muted" style="text-align:center; margin-top:6px;">
-            Bakışlarını aldım avuçlarıma,<br>
-            başka kimse görmesin diye gözlerimi kapattım.<br>
-            Kulaklarımı susturdum dünyaya,<br>
-            benden başka kimse duymasın diye adını…
+            Gözlerinde saklı baharım,,<br>
+            adınla başlar her yarınım.  .<br>
+            Bir gün değil, bir ömür,<br>
+           sevgilim, en güzel kararım...
           </p>
         </div>
       </div>
@@ -296,8 +296,11 @@
 
     <div class="card qwrap" style="margin-top:14px;">
       <div class="qbox">
-        <h3 class="title" style="margin:0;">Benimle sevgili kalır mısın? 😄</h3>
+        <h3 class="title" style="margin:0;">Benimle sevgili kalır mısın? </h3>
         <p class="muted" style="margin:0;">Evet’e basınca sürpriz var…</p>
+        <p class="muted" id="noHint" style="margin-top:8px; display:none;">
+  Hayır’a basmaya çalışırsan <b>daha büyük bir sürpriz var</b> 
+</p>
         <div class="qbtns">
           <button class="btn" id="btnYes">Evet</button>
         </div>
@@ -305,7 +308,7 @@
       <button class="btn secondary" id="btnNo">Hayır</button>
     </div>
 
-    <footer>A❤️U — Yiğenimmmm</footer>
+    <footer>A❤️U </footer>
   </div>
 
   <!-- Müzik -->
@@ -318,13 +321,27 @@
 
     const LETTER_TEXT =
 `Bazı insanlar vardır…
-Hayatına sessizce girer
-ama içindeki her şeyi değiştirir.
+Hayatına sessizce girer,
+fark etmezsin bile.
+Ama bir bakmışsın,
+içindeki her şeyi yerinden oynatmış.
 
 Sen öyle geldin.
+Ben seni ararken değil,
+hatta hiç aramıyorken,
+hiç düşünmüyorken buldum.
+
 Gülüşünle,
 bakışınla,
-“ice americano” deyişinle…
+o “umutcannn” deyişinle…
+
+Senin yanındayken zaman garipleşiyor.
+Bazen su gibi akıp gidiyor,
+nasıl geçtiğini anlamıyorum bile.
+Bazen de akrep ile yelkovanı durdurup,
+o anı biraz daha tutmak istiyorum.
+Sanki saatler senin yanında
+başka çalışıyor.
 
 Zaman bazen yavaşladı,
 bazen hızlandı
@@ -337,15 +354,22 @@ Birlikte güldük,
 yan yana sustuk,
 aynı masada kahve içtik,
 aynı anda heyecanlandık.
+Hiçbirini zorlamadan,
+hiçbirini planlamadan.
 
 Ve bir gün…
-Kalbim ağzımdayken
+Kalbim ağzımdayken,
+sesim biraz titrerken,
 “biz olalım mı?” dedim.
 
 İyi ki oldun.
+İyi ki geldin.
 İyi ki buradayız.
 İyi ki bu hikâye
-seninle yazılıyor ❤️`;
+seninle,
+hiç beklemediğim bir anda
+ama tam da olması gerektiği gibi
+yazılıyor ❤️`;
 
     const PHOTOS = [
       "img/img1.jpeg","img/img2.jpeg","img/img3.jpeg",
@@ -630,6 +654,7 @@ seninle yazılıyor ❤️`;
   </script>
 </body>
 </html>
+
 
 
 
