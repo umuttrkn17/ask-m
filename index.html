@@ -194,6 +194,30 @@
     .err{color:#b4003d; font-weight:900; min-height:22px; margin-top:10px;}
     .small{font-size:13px; color:var(--muted); margin-top:10px;}
     footer{margin-top:16px; color:var(--muted); text-align:center; font-size:13px;}
+    /* ✅ MOBİLDE HERO DÜZENİ */
+@media (max-width: 640px){
+  .row{
+    flex-direction: column;     /* alt alta diz */
+    align-items: center;        /* ortala */
+  }
+  .hero-spacer{ display:none; } /* spacer gereksiz */
+
+  .hero-heart{
+    margin-left: 0;             /* sağ itmesin */
+    margin-top: 10px;
+    width: 240px;               /* mobilde ideal boy */
+    height: 240px;
+  }
+}
+
+/* ✅ Daha küçük telefonlar */
+@media (max-width: 380px){
+  .hero-heart{
+    width: 210px;
+    height: 210px;
+  }
+}
+
   </style>
 </head>
 
@@ -606,5 +630,6 @@ seninle yazılıyor ❤️`;
   </script>
 </body>
 </html>
+
 
 
