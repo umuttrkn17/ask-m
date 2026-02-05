@@ -51,6 +51,48 @@
       box-shadow:none;
     }
 
+    /* ✅ Sağ üstte kalp foto */
+    .hero-heart{
+      width:56px;
+      height:56px;
+      object-fit:cover;
+      margin-left:auto;
+
+      /* kalp şekli */
+      clip-path: polygon(
+        50% 90%,
+        85% 60%,
+        95% 35%,
+        85% 18%,
+        65% 18%,
+        50% 32%,
+        35% 18%,
+        15% 18%,
+        5% 35%,
+        15% 60%
+      );
+
+      border:2px solid rgba(255,122,168,.9);
+      box-shadow: 0 10px 18px rgba(255,59,122,.28);
+      background:#fff;
+
+      /* kalp atma */
+      animation: heartBeat 1.2s infinite ease-in-out;
+      transform-origin:center;
+    }
+    @keyframes heartBeat{
+      0%   { transform: scale(1);   }
+      15%  { transform: scale(1.08);}
+      30%  { transform: scale(1);   }
+      45%  { transform: scale(1.12);}
+      60%  { transform: scale(1);   }
+      100% { transform: scale(1);   }
+    }
+    .hero-heart:hover{
+      animation-duration:.9s;
+      box-shadow: 0 14px 26px rgba(255,59,122,.38);
+    }
+
     .grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px;}
     @media (min-width: 860px){ .grid{grid-template-columns: 1.2fr .8fr;} }
     .section{padding:18px;}
@@ -155,13 +197,16 @@
         <span class="pill">✨ Özel sürüm: 14 Şubat</span>
         <span class="pill" id="counterPill">⏳ ...</span>
         <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
+
+        <!-- ✅ Kalp foto (img/kalp.jpeg koy) -->
+        <img src="img/kalp.jpeg" class="hero-heart" alt="Biz ❤️">
       </div>
     </div>
 
     <div class="grid">
       <div class="card section">
         <h3 class="title">Mektubum</h3>
-        <p class="muted">Güzeller güzeli sevgilimeee </p>
+        <p class="muted">Güzeller güzeli sevgilimeee</p>
         <hr style="border:0;border-top:1px solid rgba(0,0,0,.08); margin:12px 0;">
         <p id="letter"></p>
       </div>
@@ -173,12 +218,12 @@
             <img id="gimg" src="img/img1.jpeg" alt="Fotoğraf">
           </div>
           <div class="gctrl" id="dots"></div>
+
           <p class="muted" style="text-align:center; margin-top:6px;">
-  Bakışlarını aldım avuçlarıma,<br>
-  başka kimse görmesin diye gözlerimi kapattım.<br>
-  Kulaklarımı susturdum dünyaya,<br>
-  benden başka kimse duymasın diye adını…
-</p>
+            Bakışlarını aldım avuçlarıma,<br>
+            başka kimse görmesin diye gözlerimi kapattım.<br>
+            Kulaklarımı susturdum dünyaya,<br>
+            benden başka kimse duymasın diye adını…
           </p>
         </div>
       </div>
@@ -200,7 +245,7 @@
       <button class="btn secondary" id="btnNo">Hayır</button>
     </div>
 
-    <footer> A❤️U</footer>
+    <footer>A❤️U</footer>
   </div>
 
   <!-- Müzik -->
@@ -211,7 +256,6 @@
     const PASSWORD = "1201";
     const RELATION_START = "2026-01-12"; // 12 Ocak 2026
 
-    // MEKTUP: tarihsiz, duygusal
     const LETTER_TEXT =
 `Bazı insanlar vardır…
 Hayatına sessizce girer
@@ -243,56 +287,26 @@ Kalbim ağzımdayken
 İyi ki bu hikâye
 seninle yazılıyor ❤️`;
 
-    // Galeri fotoğrafları
     const PHOTOS = [
-  "img/img1.jpeg",
-  "img/img2.jpeg",
-  "img/img3.jpeg",
-  "img/img4.jpeg",
-  "img/img5.jpeg",
-  "img/img6.jpeg",
-  "img/img7.jpeg",
-  "img/img8.jpeg",
-  "img/img9.jpeg"
-];
+      "img/img1.jpeg",
+      "img/img2.jpeg",
+      "img/img3.jpeg",
+      "img/img4.jpeg",
+      "img/img5.jpeg",
+      "img/img6.jpeg",
+      "img/img7.jpeg",
+      "img/img8.jpeg",
+      "img/img9.jpeg"
+    ];
 
-    // Timeline: akıcı metinli
     const EVENTS = [
-      {
-        icon:"01",
-        title:"İlk tanışma",
-        desc:"01.01.2026 — Soğuk bir Uşak akşamı… Soulmate’te ilk kez göz göze geldik ✨"
-      },
-      {
-        icon:"02",
-        title:"İlk buluşma",
-        desc:"02.01.2026 — Zaman su gibi aktı… Koko yemeye bile yetişemedik 😄"
-      },
-      {
-        icon:"09",
-        title:"Kahve date",
-        desc:"09.01.2026 — Ice Americano (klasik 😌). Hasta olsak bile o soğuk kahve içilecekti."
-      },
-      {
-        icon:"11",
-        title:"Yemek date",
-        desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavla… ve ben kazandım 😎"
-      },
-      {
-        icon:"12",
-        title:"Açıkma teklifi",
-        desc:"12.01.2026 — Toplu tatlı date’in ardından “tatlı yiyelim tatlı konuşalım” dedim… ve biz olduk 💐❤️"
-      },
-      {
-        icon:"15",
-        title:"Lego date",
-        desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık… resmen çocuk gibi mutlu olduk 🧩"
-      },
-      {
-        icon:"∞",
-        title:"Devamı…",
-        desc:"Bu daha başlangıç 😈❤️"
-      },
+      { icon:"01", title:"İlk tanışma",    desc:"01.01.2026 — Soğuk bir Uşak akşamı… Soulmate’te ilk kez göz göze geldik ✨" },
+      { icon:"02", title:"İlk buluşma",    desc:"02.01.2026 — Zaman su gibi aktı… Koko yemeye bile yetişemedik 😄" },
+      { icon:"09", title:"Kahve date",     desc:"09.01.2026 — Ice Americano (klasik 😌). Hasta olsak bile o soğuk kahve içilecekti." },
+      { icon:"11", title:"Yemek date",     desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavla… ve ben kazandım 😎" },
+      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Toplu tatlı date’in ardından “tatlı yiyelim tatlı konuşalım” dedim… ve biz olduk 💐❤️" },
+      { icon:"15", title:"Lego date",      desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık… resmen çocuk gibi mutlu olduk 🧩" },
+      { icon:"∞",  title:"Devamı…",        desc:"Bu daha başlangıç 😈❤️" },
     ];
 
     // --- Elemanlar ---
@@ -304,7 +318,7 @@ seninle yazılıyor ❤️`;
     const musicBtn = document.getElementById("musicBtn");
     let musicOn = false;
 
-    pass.value = ""; // autofill engelle
+    pass.value = "";
 
     function unlock(){
       const v = (pass.value || "").trim();
@@ -316,7 +330,7 @@ seninle yazılıyor ❤️`;
       overlay.style.display = "none";
       app.style.display = "block";
       startAll();
-      autoPlayMusic(); // ✅ Şifre doğruysa otomatik müzik
+      autoPlayMusic();
     }
 
     document.getElementById("unlock").addEventListener("click", unlock);
@@ -336,7 +350,6 @@ seninle yazılıyor ❤️`;
       initMusic();
     }
 
-    // Typewriter
     function typeWriter(text){
       const el = document.getElementById("letter");
       el.textContent = "";
@@ -348,7 +361,6 @@ seninle yazılıyor ❤️`;
       }, 22);
     }
 
-    // Sayaç
     function initCounter(){
       const pill = document.getElementById("counterPill");
       const start = new Date(RELATION_START + "T00:00:00");
@@ -364,7 +376,6 @@ seninle yazılıyor ❤️`;
       setInterval(tick, 60000);
     }
 
-    // Galeri
     function initGallery(){
       const imgEl = document.getElementById("gimg");
       const dots = document.getElementById("dots");
@@ -388,7 +399,6 @@ seninle yazılıyor ❤️`;
       setInterval(()=>set(idx+1), 4500);
     }
 
-    // Timeline
     function initTimeline(){
       const tl = document.getElementById("timeline");
       tl.innerHTML = "";
@@ -406,7 +416,6 @@ seninle yazılıyor ❤️`;
       });
     }
 
-    // Soru + konfeti
     function initQuestion(){
       const btnYes = document.getElementById("btnYes");
       const btnNo  = document.getElementById("btnNo");
@@ -431,7 +440,6 @@ seninle yazılıyor ❤️`;
       btnNo.style.position = "absolute";
     }
 
-    // Müzik butonu
     function initMusic(){
       musicBtn.addEventListener("click", async ()=>{
         try{
@@ -450,18 +458,16 @@ seninle yazılıyor ❤️`;
       });
     }
 
-    // Şifre doğru girilince otomatik başlat
     async function autoPlayMusic(){
       try{
         await bgm.play();
         musicOn = true;
         musicBtn.textContent = "⏸️ Durdur";
       }catch(e){
-        // Bazı tarayıcılarda engel olabilir, butonla yine çalışır.
+        // Engellenirse butonla çalışır
       }
     }
 
-    // Konfeti
     function launchConfetti(){
       const n = 110;
       for(let i=0;i<n;i++){
@@ -492,6 +498,3 @@ seninle yazılıyor ❤️`;
   </script>
 </body>
 </html>
-
-
-
