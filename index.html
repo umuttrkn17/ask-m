@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sadece Biz ❤️</title>
+
   <style>
     :root{
       --bg1:#ffe6f0; --bg2:#fff7fb; --card:#ffffffcc;
@@ -25,10 +26,15 @@
       border-radius:var(--radius);
       box-shadow: var(--shadow);
     }
+
+    /* HERO */
     .hero{padding:26px 18px; margin-top:18px;}
     h1{margin:0 0 10px; font-size:clamp(26px, 4vw, 44px); letter-spacing:-.5px;}
     .sub{margin:0; color:var(--muted); font-size:16px;}
-    .row{display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:14px;}
+
+    .row{
+      display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:14px;
+    }
     .pill{
       display:inline-flex; gap:8px; align-items:center;
       padding:10px 12px; border-radius:999px;
@@ -36,6 +42,7 @@
       border:1px solid rgba(255,59,122,.25);
       color:#b4003d;
       font-weight:700; font-size:14px;
+      white-space:nowrap;
     }
     .btn{
       border:0; cursor:pointer; font-weight:900;
@@ -44,6 +51,7 @@
       color:white; box-shadow: 0 10px 18px rgba(255,59,122,.25);
       transition: transform .08s ease;
       user-select:none;
+      white-space:nowrap;
     }
     .btn:active{transform: scale(.98)}
     .btn.secondary{
@@ -51,13 +59,15 @@
       box-shadow:none;
     }
 
-    /* ✅ Sağda kalp foto + kalp atma */
+    /* Hero sağ: kalp foto */
+    .hero-spacer{flex:1 1 auto;}
     .hero-heart{
-      width:56px;
-      height:56px;
-      object-fit:cover;
+      width:210px;
+      height:210px;
       margin-left:auto;
-
+      border:2px solid rgba(255,122,168,.9);
+      box-shadow: 0 10px 18px rgba(255,59,122,.22);
+      background:#fff;
       clip-path: polygon(
         50% 90%,
         85% 60%,
@@ -70,33 +80,31 @@
         5% 35%,
         15% 60%
       );
-
-      border:2px solid rgba(255,122,168,.9);
-      box-shadow: 0 10px 18px rgba(255,59,122,.28);
-      background:#fff;
-
-      animation: heartBeat 1.2s infinite ease-in-out;
+      overflow:hidden;
+      animation: heartBeat 1.25s infinite ease-in-out;
       transform-origin:center;
       cursor:pointer;
     }
+    .hero-heart img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform: scale(0.90); /* foto biraz uzaklaşır */
+    }
     @keyframes heartBeat{
       0%   { transform: scale(1);   }
-      15%  { transform: scale(1.08);}
+      15%  { transform: scale(1.06);}
       30%  { transform: scale(1);   }
-      45%  { transform: scale(1.12);}
+      45%  { transform: scale(1.10);}
       60%  { transform: scale(1);   }
       100% { transform: scale(1);   }
     }
-    .hero-heart:hover{
-      animation-duration:.9s;
-      box-shadow: 0 14px 26px rgba(255,59,122,.38);
-    }
+    .hero-heart:hover{animation-duration:.95s;}
 
-    /* ✅ Kalp parçacıkları */
+    /* mini kalpler */
     .spark-heart{
       position: fixed;
-      width: 10px;
-      height: 10px;
+      width: 12px; height: 12px;
       background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.2) 35%, rgba(255,59,122,.95) 70%);
       clip-path: polygon(
         50% 90%,
@@ -116,6 +124,7 @@
       filter: drop-shadow(0 8px 10px rgba(255,59,122,.25));
     }
 
+    /* GRID */
     .grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px;}
     @media (min-width: 860px){ .grid{grid-template-columns: 1.2fr .8fr;} }
     .section{padding:18px;}
@@ -221,8 +230,12 @@
         <span class="pill" id="counterPill">⏳ ...</span>
         <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
 
+        <span class="hero-spacer"></span>
+
         <!-- Kalp foto -->
-        <img src="img/kalp.jpeg" class="hero-heart" id="heroHeart" alt="Biz ❤️">
+        <div class="hero-heart" id="heroHeart" title="Biz ❤️">
+          <img src="img/kalp.jpeg" alt="Biz ❤️">
+        </div>
       </div>
     </div>
 
@@ -268,11 +281,11 @@
       <button class="btn secondary" id="btnNo">Hayır</button>
     </div>
 
-    <footer>A❤️U</footer>
+    <footer>A❤️U — Yiğenimmmm</footer>
   </div>
 
   <!-- Müzik -->
-  <audio id="bgm" src="music.mp3" loop></audio>
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
 
   <script>
     // === AYARLAR ===
@@ -321,8 +334,8 @@ seninle yazılıyor ❤️`;
       { icon:"02", title:"İlk buluşma",    desc:"02.01.2026 — Zaman su gibi aktı… Koko yemeye bile yetişemedik 😄" },
       { icon:"09", title:"Kahve date",     desc:"09.01.2026 — Ice Americano (klasik 😌). Hasta olsak bile o soğuk kahve içilecekti." },
       { icon:"11", title:"Yemek date",     desc:"11.01.2026 — Makarna 🍝 + Türk kahvesi ☕ + Tavla… ve ben kazandım 😎" },
-      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — Toplu tatlı date’in ardından “tatlı yiyelim tatlı konuşalım” dedim… ve biz olduk 💐❤️" },
-      { icon:"15", title:"Lego date",      desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık… resmen çocuk gibi mutlu olduk 🧩" },
+      { icon:"12", title:"Açıkma teklifi", desc:"12.01.2026 — “Biz olalım mı?” dedim… ve biz olduk 💐❤️" },
+      { icon:"15", title:"Lego date",      desc:"15.01.2026 — Erik Çiçeği 🌸 Lego yaptık… çocuk gibi mutlu olduk 🧩" },
       { icon:"∞",  title:"Devamı…",        desc:"Bu daha başlangıç 😈❤️" },
     ];
 
@@ -333,8 +346,8 @@ seninle yazılıyor ❤️`;
     const err  = document.getElementById("err");
     const bgm  = document.getElementById("bgm");
     const musicBtn = document.getElementById("musicBtn");
-    let musicOn = false;
 
+    let musicOn = false;
     pass.value = "";
 
     function unlock(){
@@ -365,14 +378,11 @@ seninle yazılıyor ❤️`;
       initTimeline();
       initQuestion();
       initMusic();
-
-      // ✅ ilk girişte konfeti
-      launchConfettiSoft();
-
-      // ✅ kalp attıkça minik kalpler
-      initHeartSparks();
+      launchConfettiSoft();     // ilk giriş konfeti (uzun/yavaş)
+      initHeartSparks();        // kalp parçacıkları
     }
 
+    // Typewriter
     function typeWriter(text){
       const el = document.getElementById("letter");
       el.textContent = "";
@@ -380,10 +390,11 @@ seninle yazılıyor ❤️`;
       const t = setInterval(()=>{
         el.textContent += text[i] || "";
         i++;
-        if(i > text.length) clearInterval(t);
+        if(i >= text.length) clearInterval(t);
       }, 22);
     }
 
+    // Sayaç
     function initCounter(){
       const pill = document.getElementById("counterPill");
       const start = new Date(RELATION_START + "T00:00:00");
@@ -399,6 +410,7 @@ seninle yazılıyor ❤️`;
       setInterval(tick, 60000);
     }
 
+    // Galeri
     function initGallery(){
       const imgEl = document.getElementById("gimg");
       const dots = document.getElementById("dots");
@@ -422,6 +434,7 @@ seninle yazılıyor ❤️`;
       setInterval(()=>set(idx+1), 4500);
     }
 
+    // Timeline
     function initTimeline(){
       const tl = document.getElementById("timeline");
       tl.innerHTML = "";
@@ -439,6 +452,7 @@ seninle yazılıyor ❤️`;
       });
     }
 
+    // Soru
     function initQuestion(){
       const btnYes = document.getElementById("btnYes");
       const btnNo  = document.getElementById("btnNo");
@@ -449,20 +463,18 @@ seninle yazılıyor ❤️`;
       });
 
       function kac(){
-        const maxX = Math.max(20, window.innerWidth - 140);
-        const maxY = Math.max(20, window.innerHeight - 120);
+        const maxX = Math.max(20, window.innerWidth - 160);
+        const maxY = Math.max(20, window.innerHeight - 140);
         btnNo.style.left = Math.floor(Math.random()*maxX) + "px";
         btnNo.style.top  = Math.floor(Math.random()*maxY) + "px";
       }
 
       btnNo.addEventListener("mouseover", kac);
       btnNo.addEventListener("touchstart", (e)=>{ e.preventDefault(); kac(); }, {passive:false});
-
-      btnNo.style.left = "55%";
-      btnNo.style.top  = "210px";
       btnNo.style.position = "absolute";
     }
 
+    // Müzik
     function initMusic(){
       musicBtn.addEventListener("click", async ()=>{
         try{
@@ -487,40 +499,40 @@ seninle yazılıyor ❤️`;
         musicOn = true;
         musicBtn.textContent = "⏸️ Durdur";
       }catch(e){
-        // engellenirse butonla çalışır
+        // Safari engellerse normal, butonla açılır.
       }
     }
 
-    // ✅ İlk giriş konfeti (hafif)
+    // İlk giriş konfeti (UZUN + YAVAŞ)
     function launchConfettiSoft(){
-      const n = 70;
+      const n = 120;
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
         s.style.left = Math.random()*100 + "vw";
-        s.style.top  = "-12px";
-        s.style.width = (5 + Math.random()*6) + "px";
-        s.style.height= (10 + Math.random()*14)+ "px";
+        s.style.top  = (-20 - Math.random()*40) + "px";
+        s.style.width = (4 + Math.random()*6) + "px";
+        s.style.height= (10 + Math.random()*18)+ "px";
         s.style.borderRadius="6px";
         s.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 72%)`;
-        s.style.opacity = "0.9";
+        s.style.opacity = "0.90";
         s.style.transform = `rotate(${Math.random()*360}deg)`;
         s.style.zIndex = 9997;
         document.body.appendChild(s);
 
-        const dur = 1200 + Math.random()*1200;
-        const drift = (Math.random()*2 - 1) * 120;
+        const dur = 4200 + Math.random()*2200;   // ✅ daha uzun
+        const drift = (Math.random()*2 - 1) * 180;
 
         s.animate([
-          { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
-          { transform:`translate(${drift}px, ${window.innerHeight+140}px) rotate(${540+Math.random()*540}deg)`, opacity:1 }
-        ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
+          { transform:`translate(0,0) rotate(0deg)`, opacity:0.95 },
+          { transform:`translate(${drift}px, ${window.innerHeight+200}px) rotate(${720+Math.random()*720}deg)`, opacity:0.95 }
+        ], { duration: dur, easing:"linear" });  // ✅ daha yavaş hissi
 
         setTimeout(()=>s.remove(), dur+100);
       }
     }
 
-    // ✅ Kalp attıkça minik kalpler
+    // Kalp parçacıkları
     function initHeartSparks(){
       const heart = document.getElementById("heroHeart");
       if(!heart) return;
@@ -530,49 +542,49 @@ seninle yazılıyor ❤️`;
         const baseX = rect.left + rect.width/2;
         const baseY = rect.top + rect.height/2;
 
-        const count = 6 + Math.floor(Math.random()*4);
+        const count = 7 + Math.floor(Math.random()*5);
         for(let i=0;i<count;i++){
           const h = document.createElement("div");
           h.className = "spark-heart";
           document.body.appendChild(h);
 
-          const startX = baseX + (Math.random()*14 - 7);
-          const startY = baseY + (Math.random()*14 - 7);
+          const startX = baseX + (Math.random()*16 - 8);
+          const startY = baseY + (Math.random()*16 - 8);
 
           h.style.left = startX + "px";
           h.style.top  = startY + "px";
 
-          const dx = (Math.random()*2 - 1) * 120;
-          const dy = -(70 + Math.random()*120);
+          const dx = (Math.random()*2 - 1) * 140;
+          const dy = -(80 + Math.random()*140);
           const rot = (Math.random()*2 - 1) * 220;
-          const scale = 0.8 + Math.random()*1.0;
+          const scale = 0.8 + Math.random()*1.2;
 
-          const dur = 750 + Math.random()*500;
+          const dur = 900 + Math.random()*800;
 
           h.animate([
             { transform:`translate(0,0) rotate(0deg) scale(${scale})`, opacity: 0.95 },
-            { transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale*0.7})`, opacity: 0 }
+            { transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale*0.65})`, opacity: 0 }
           ], { duration: dur, easing: "cubic-bezier(.2,.8,.2,1)" });
 
           setTimeout(()=>h.remove(), dur+50);
         }
       }
 
-      setInterval(burst, 1200);
+      setInterval(burst, 1250);
       heart.addEventListener("mouseenter", burst);
       heart.addEventListener("click", burst);
     }
 
-    // Konfeti (Evet'e basınca büyük)
+    // Büyük konfeti (Evet'e basınca)
     function launchConfetti(){
-      const n = 110;
+      const n = 160;
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
         s.style.left = Math.random()*100 + "vw";
-        s.style.top  = "-10px";
-        s.style.width = (6 + Math.random()*6) + "px";
-        s.style.height= (10 + Math.random()*14)+ "px";
+        s.style.top  = (-10 - Math.random()*30) + "px";
+        s.style.width = (5 + Math.random()*7) + "px";
+        s.style.height= (12 + Math.random()*18)+ "px";
         s.style.borderRadius="6px";
         s.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 70%)`;
         s.style.opacity = "0.95";
@@ -580,12 +592,12 @@ seninle yazılıyor ❤️`;
         s.style.zIndex = 9998;
         document.body.appendChild(s);
 
-        const dur = 1300 + Math.random()*1400;
-        const drift = (Math.random()*2 - 1) * 140;
+        const dur = 2600 + Math.random()*1800;
+        const drift = (Math.random()*2 - 1) * 220;
 
         s.animate([
           { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
-          { transform:`translate(${drift}px, ${window.innerHeight+140}px) rotate(${720+Math.random()*720}deg)`, opacity:1 }
+          { transform:`translate(${drift}px, ${window.innerHeight+240}px) rotate(${900+Math.random()*900}deg)`, opacity:1 }
         ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
 
         setTimeout(()=>s.remove(), dur+100);
