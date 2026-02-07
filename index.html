@@ -61,7 +61,6 @@
       box-shadow:none;
     }
 
-    /* Hero: butonlar alt satıra da güzel düşsün */
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
@@ -69,9 +68,9 @@
       align-items:center;
     }
 
-    /* ✅ SVG GERÇEK KALP FOTO */
     .hero-spacer{flex:1 1 auto;}
 
+    /* ✅ KALP */
     .hero-heart{
       width:260px;
       height:240px;
@@ -83,14 +82,11 @@
       user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
-    /* Dış çizgi */
     .hero-heart .stroke{
       fill:none;
       stroke: rgba(255,122,168,.95);
       stroke-width: 2.2;
     }
-
-    /* Kalp atma */
     @keyframes heartBeat{
       0%   { transform: scale(1); }
       15%  { transform: scale(1.06); }
@@ -101,10 +97,8 @@
     }
     .hero-heart:hover{animation-duration:.95s;}
 
-    /* Başta görünmesin */
     .hidden{ display:none !important; }
 
-    /* İyi'ye basınca çıkış animasyonu */
     .heart-pop{
       display:block !important;
       animation: heartReveal .9s ease-out forwards;
@@ -209,7 +203,7 @@
       .hero-heart{width:240px; height:220px;}
     }
 
-    /* ✅ Toast mesajı */
+    /* ✅ Toast */
     .toast{
       position: fixed;
       left: 50%;
@@ -260,17 +254,15 @@
           <span class="pill" id="counterPill">⏳ ...</span>
           <button class="btn secondary" id="musicBtn">🎵 Müzik</button>
 
-          <!-- ✅ Yeni: İyi / Kötü -->
           <button class="btn" id="btnGood">İyi 😌</button>
           <button class="btn secondary" id="btnBad">Kötü 🙃</button>
         </div>
 
         <span class="hero-spacer"></span>
 
-        <!-- ✅ Kalp foto: ilk girişte GİZLİ, "İyi"ye basınca AÇILIR ve hep kalır -->
+        <!-- ✅ FOTO KALP: “İyi”ye basınca açılır -->
         <svg class="hero-heart hidden" id="heroHeart" viewBox="0 0 100 90" aria-label="Biz ❤️">
           <defs>
-            <!-- Daha gerçek kalp formu -->
             <clipPath id="heartClip">
               <path d="M50 84
                        C 18 62, 6 45, 6 28
@@ -280,14 +272,30 @@
                        C 85 6, 94 15, 94 28
                        C 94 45, 82 62, 50 84 Z"/>
             </clipPath>
+
+            <!-- ✅ Arka blur filtresi -->
+            <filter id="bgBlur">
+              <feGaussianBlur stdDeviation="2.7"/>
+              <feColorMatrix type="matrix"
+                values="1 0 0 0 0
+                        0 1 0 0 0
+                        0 0 1 0 0
+                        0 0 0 .85 0"/>
+            </filter>
           </defs>
 
-          <!-- Fotoğraf -->
-          <!-- NOT: Foto biraz "uzak" dursun diye width/height büyük + x/y negatif verildi -->
+          <!-- 1) ARKA KATMAN (blur + slice) => kalp boş kalmaz -->
           <image href="img/kalp.jpeg"
-                 x="-6" y="-8" width="100" height="100"
+                 x="0" y="0" width="100" height="90"
                  clip-path="url(#heartClip)"
-                 preserveAspectRatio="xMidYMid slice"></image>
+                 preserveAspectRatio="xMidYMid slice"
+                 filter="url(#bgBlur)"></image>
+
+          <!-- 2) ÖN KATMAN (meet) => FOTO UZAK / TAM KADRAJ -->
+          <image href="img/kalp.jpeg"
+                 x="6" y="4" width="88" height="82"
+                 clip-path="url(#heartClip)"
+                 preserveAspectRatio="xMidYMid meet"></image>
 
           <!-- Kalp çizgisi -->
           <path class="stroke"
@@ -354,8 +362,7 @@
 
   <div class="toast" id="toast">Tekrar deneyiniz 🙃</div>
 
-  <!-- ✅ Müzik (iPhone için playsinline) -->
-  <!-- iPhone için öneri: music.m4a -->
+  <!-- ✅ iPhone için: playsinline + butonla başlat -->
   <audio id="bgm" src="music.mp3" loop preload="auto" playsinline></audio>
 
   <script>
@@ -446,7 +453,6 @@ seninle yazılıyor ❤️`;
       overlay.style.display = "none";
       app.style.display = "block";
       startAll();
-      // ❌ iPhone otomatik çalmayı engeller: otomatik başlatmıyoruz.
     }
 
     document.getElementById("unlock").addEventListener("click", unlock);
@@ -458,7 +464,7 @@ seninle yazılıyor ❤️`;
     });
 
     function startAll(){
-      bindIOSAudioUnlock();  // ✅ iPhone audio kilidi açma
+      bindIOSAudioUnlock();
       typeWriter(LETTER_TEXT);
       initCounter();
       initGallery();
@@ -466,18 +472,17 @@ seninle yazılıyor ❤️`;
       initQuestion();
       initMusic();
 
-      launchConfettiSoft();  // ✅ ilk giriş konfeti uzun/yavaş
-      initHeartSparks();     // ✅ kalp parçacıkları (kalp açılınca daha tatlı)
-      initGoodBad();         // ✅ iyi/kötü butonları
+      launchConfettiSoft();
+      initHeartSparks();
+      initGoodBad();
     }
 
-    // ✅ iPhone/Safari audio unlock: ilk dokunuşla ses sistemini "uyandırır"
+    // ✅ iPhone audio unlock (ilk dokunuşla sistem uyanır)
     function bindIOSAudioUnlock(){
       const unlockAudio = async () => {
         try{
           bgm.muted = false;
           bgm.volume = 1.0;
-          // kısa play/pause ile iOS sesi açılır
           await bgm.play();
           bgm.pause();
           bgm.currentTime = 0;
@@ -491,10 +496,8 @@ seninle yazılıyor ❤️`;
 
     function initGoodBad(){
       btnGood.addEventListener("click", ()=>{
-        // kalbi göster ve hep kalsın
         heroHeart.classList.remove("hidden");
         heroHeart.classList.add("heart-pop");
-        // bir kere patlat
         burstHeartsFrom(heroHeart);
       });
 
@@ -614,7 +617,6 @@ seninle yazılıyor ❤️`;
       musicBtn.addEventListener("click", async ()=>{
         try{
           if(!musicOn){
-            // iOS için bazen load iyi geliyor
             try{ bgm.load(); }catch(e){}
             await bgm.play();
             musicOn = true;
@@ -688,7 +690,7 @@ seninle yazılıyor ❤️`;
       }
     }
 
-    // Kalp parçacıkları (kalp varsa)
+    // Kalp parçacıkları
     function initHeartSparks(){
       setInterval(()=>{
         if(heroHeart.classList.contains("hidden")) return;
@@ -734,6 +736,3 @@ seninle yazılıyor ❤️`;
   </script>
 </body>
 </html>
-
-
-
