@@ -89,7 +89,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      transform: scale(0.75); /* foto biraz uzaklaşır */
+      transform: scale(0.75);
     }
     @keyframes heartBeat{
       0%   { transform: scale(1);   }
@@ -163,7 +163,7 @@
     }
 
     /* Question */
-    .qwrap{position:relative; padding:18px; min-height:260px;}
+    .qwrap{position:relative; padding:18px; min-height:280px;}
     .qbox{display:grid; gap:10px; place-items:center; text-align:center;}
     .qbtns{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;}
     #btnNo{position:absolute; left:55%; top:210px;}
@@ -194,30 +194,55 @@
     .err{color:#b4003d; font-weight:900; min-height:22px; margin-top:10px;}
     .small{font-size:13px; color:var(--muted); margin-top:10px;}
     footer{margin-top:16px; color:var(--muted); text-align:center; font-size:13px;}
+
     /* ✅ MOBİLDE HERO DÜZENİ */
-@media (max-width: 640px){
-  .row{
-    flex-direction: column;     /* alt alta diz */
-    align-items: center;        /* ortala */
-  }
-  .hero-spacer{ display:none; } /* spacer gereksiz */
+    @media (max-width: 640px){
+      .row{
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-spacer{ display:none; }
+      .hero-heart{
+        margin-left: 0;
+        margin-top: 10px;
+        width: 240px;
+        height: 240px;
+      }
+    }
+    @media (max-width: 380px){
+      .hero-heart{ width: 210px; height: 210px; }
+    }
 
-  .hero-heart{
-    margin-left: 0;             /* sağ itmesin */
-    margin-top: 10px;
-    width: 240px;               /* mobilde ideal boy */
-    height: 240px;
-  }
-}
+    .hidden{display:none;}
 
-/* ✅ Daha küçük telefonlar */
-@media (max-width: 380px){
-  .hero-heart{
-    width: 210px;
-    height: 210px;
-  }
-}
+    /* İyi'ye basınca çıkış animasyonu */
+    .heart-pop{
+      display:block !important;
+      animation: heartReveal 0.9s ease-out forwards;
+    }
+    @keyframes heartReveal{
+      0%   { transform: scale(0.2); opacity:0; }
+      60%  { transform: scale(1.3); opacity:1; }
+      100% { transform: scale(1); }
+    }
 
+    /* Müzik altı değerlendirme */
+    .rate{
+      width:100%;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .rate .msg{
+      width:100%;
+      text-align:center;
+      font-weight:900;
+      color:#b4003d;
+      min-height:22px;
+    }
   </style>
 </head>
 
@@ -239,14 +264,14 @@
       </div>
 
       <div class="err" id="err"></div>
-      <div class="small">Yanlış şifre girilirse sayfa açılmaz </div>
+      <div class="small">Yanlış şifre girilirse sayfa açılmaz</div>
     </div>
   </div>
 
   <!-- Site -->
   <div class="wrap" id="app" style="display:none;">
     <div class="card hero">
-      <h1>Kalbimin en güzel hikâyesi sensin askımm ❤️</h1>
+      <h1>Kalbimin en güzel hikâyesi sensin aşkımm ❤️</h1>
       <p class="sub">Bu sayfa sadece ikimiz için…</p>
 
       <div class="row">
@@ -256,9 +281,16 @@
 
         <span class="hero-spacer"></span>
 
-        <!-- Kalp foto -->
-        <div class="hero-heart" id="heroHeart" title="Biz ❤️">
+        <!-- Kalp foto (başta gizli) -->
+        <div class="hero-heart hidden" id="heroHeart" title="Biz ❤️">
           <img src="img/kalp.jpeg" alt="Biz ❤️">
+        </div>
+
+        <!-- Müzik altı: iyi/kötü (row içinde ama %100 geniş, aşağıya iner) -->
+        <div class="rate">
+          <div class="msg" id="rateMsg"></div>
+          <button class="btn" id="btnGood">İyi 💖</button>
+          <button class="btn secondary" id="btnBad">Kötü 🙃</button>
         </div>
       </div>
     </div>
@@ -280,10 +312,10 @@
           <div class="gctrl" id="dots"></div>
 
           <p class="muted" style="text-align:center; margin-top:6px;">
-            Gözlerinde saklı baharım,,<br>
-            adınla başlar her yarınım.  .<br>
+            Gözlerinde saklı baharım,<br>
+            adınla başlar her yarınım.<br>
             Bir gün değil, bir ömür,<br>
-           sevgilim, en güzel kararım...
+            sevgilim, en güzel kararım...
           </p>
         </div>
       </div>
@@ -296,11 +328,11 @@
 
     <div class="card qwrap" style="margin-top:14px;">
       <div class="qbox">
-        <h3 class="title" style="margin:0;">Benimle sevgili kalır mısın? </h3>
+        <h3 class="title" style="margin:0;">Benimle sevgili kalır mısın?</h3>
         <p class="muted" style="margin:0;">Evet’e basınca sürpriz var…</p>
         <p class="muted" id="noHint" style="margin-top:8px; display:none;">
-  Hayır’a basmaya çalışırsan <b>daha büyük bir sürpriz var</b> 
-</p>
+          Hayır’a basmaya çalışırsan <b>daha büyük bir sürpriz var</b>
+        </p>
         <div class="qbtns">
           <button class="btn" id="btnYes">Evet</button>
         </div>
@@ -308,14 +340,13 @@
       <button class="btn secondary" id="btnNo">Hayır</button>
     </div>
 
-    <footer>A❤️U </footer>
+    <footer>A❤️U — yiğenimmmm</footer>
   </div>
 
   <!-- Müzik -->
   <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
 
   <script>
-    // === AYARLAR ===
     const PASSWORD = "1201";
     const RELATION_START = "2026-01-12";
 
@@ -340,8 +371,6 @@ Bazen su gibi akıp gidiyor,
 nasıl geçtiğini anlamıyorum bile.
 Bazen de akrep ile yelkovanı durdurup,
 o anı biraz daha tutmak istiyorum.
-Sanki saatler senin yanında
-başka çalışıyor.
 
 Zaman bazen yavaşladı,
 bazen hızlandı
@@ -350,26 +379,14 @@ Gerçek.
 Sıcak.
 Güzel.
 
-Birlikte güldük,
-yan yana sustuk,
-aynı masada kahve içtik,
-aynı anda heyecanlandık.
-Hiçbirini zorlamadan,
-hiçbirini planlamadan.
-
 Ve bir gün…
 Kalbim ağzımdayken,
-sesim biraz titrerken,
 “biz olalım mı?” dedim.
 
 İyi ki oldun.
 İyi ki geldin.
-İyi ki buradayız.
 İyi ki bu hikâye
-seninle,
-hiç beklemediğim bir anda
-ama tam da olması gerektiği gibi
-yazılıyor ❤️`;
+seninle yazılıyor ❤️`;
 
     const PHOTOS = [
       "img/img1.jpeg","img/img2.jpeg","img/img3.jpeg",
@@ -387,15 +404,21 @@ yazılıyor ❤️`;
       { icon:"∞",  title:"Devamı…",        desc:"Bu daha başlangıç 😈❤️" },
     ];
 
-    // --- Elemanlar ---
     const overlay = document.getElementById("overlay");
     const app = document.getElementById("app");
     const pass = document.getElementById("pass");
     const err  = document.getElementById("err");
+
     const bgm  = document.getElementById("bgm");
     const musicBtn = document.getElementById("musicBtn");
-
     let musicOn = false;
+
+    // yeni butonlar
+    const btnGood = document.getElementById("btnGood");
+    const btnBad  = document.getElementById("btnBad");
+    const rateMsg = document.getElementById("rateMsg");
+    const heroHeart = document.getElementById("heroHeart");
+
     pass.value = "";
 
     function unlock(){
@@ -408,7 +431,7 @@ yazılıyor ❤️`;
       overlay.style.display = "none";
       app.style.display = "block";
       startAll();
-      autoPlayMusic();
+      // ❌ mobilde otomatik play yok -> kaldırdım
     }
 
     document.getElementById("unlock").addEventListener("click", unlock);
@@ -426,11 +449,12 @@ yazılıyor ❤️`;
       initTimeline();
       initQuestion();
       initMusic();
-      launchConfettiSoft();     // ilk giriş konfeti (uzun/yavaş)
-      initHeartSparks();        // kalp parçacıkları
+
+      launchConfettiSoft();
+      initHeartSparks();
+      initRateButtons();
     }
 
-    // Typewriter
     function typeWriter(text){
       const el = document.getElementById("letter");
       el.textContent = "";
@@ -442,7 +466,6 @@ yazılıyor ❤️`;
       }, 22);
     }
 
-    // Sayaç
     function initCounter(){
       const pill = document.getElementById("counterPill");
       const start = new Date(RELATION_START + "T00:00:00");
@@ -458,7 +481,6 @@ yazılıyor ❤️`;
       setInterval(tick, 60000);
     }
 
-    // Galeri
     function initGallery(){
       const imgEl = document.getElementById("gimg");
       const dots = document.getElementById("dots");
@@ -482,7 +504,6 @@ yazılıyor ❤️`;
       setInterval(()=>set(idx+1), 4500);
     }
 
-    // Timeline
     function initTimeline(){
       const tl = document.getElementById("timeline");
       tl.innerHTML = "";
@@ -500,10 +521,11 @@ yazılıyor ❤️`;
       });
     }
 
-    // Soru
     function initQuestion(){
       const btnYes = document.getElementById("btnYes");
       const btnNo  = document.getElementById("btnNo");
+      const noHint = document.getElementById("noHint");
+      let hinted = false;
 
       btnYes.addEventListener("click", ()=>{
         launchConfetti();
@@ -511,6 +533,10 @@ yazılıyor ❤️`;
       });
 
       function kac(){
+        if(!hinted){
+          noHint.style.display = "block";
+          hinted = true;
+        }
         const maxX = Math.max(20, window.innerWidth - 160);
         const maxY = Math.max(20, window.innerHeight - 140);
         btnNo.style.left = Math.floor(Math.random()*maxX) + "px";
@@ -522,7 +548,7 @@ yazılıyor ❤️`;
       btnNo.style.position = "absolute";
     }
 
-    // Müzik
+    // ✅ TELEFON UYUMLU MÜZİK: sadece tıklayınca çalışır
     function initMusic(){
       musicBtn.addEventListener("click", async ()=>{
         try{
@@ -536,24 +562,37 @@ yazılıyor ❤️`;
             musicBtn.textContent = "🎵 Müzik";
           }
         }catch(e){
-          alert("Tarayıcı müziği engelledi. Bir kez daha tıkla 😊");
+          alert("Telefon tarayıcısı müziği engelledi 😅 Tekrar dokun.");
         }
       });
     }
 
-    async function autoPlayMusic(){
-      try{
-        await bgm.play();
-        musicOn = true;
-        musicBtn.textContent = "⏸️ Durdur";
-      }catch(e){
-        // Safari engellerse normal, butonla açılır.
-      }
+    // ✅ İyi/Kötü butonları
+    function initRateButtons(){
+      btnGood.addEventListener("click", ()=>{
+        rateMsg.textContent = "Biliyordum… 💖";
+        // kalp görünür + animasyon + kalıcı
+        heroHeart.classList.remove("hidden");
+        heroHeart.classList.remove("heart-pop"); // yeniden tetik için
+        void heroHeart.offsetWidth;
+        heroHeart.classList.add("heart-pop");
+
+        // ekstra: iyi basınca ufak konfeti
+        launchConfettiSoft(60);
+
+        // istersen iyi basınca müzik de başlat:
+        // bgm.play().catch(()=>{});
+      });
+
+      btnBad.addEventListener("click", ()=>{
+        rateMsg.textContent = "Tekrar deneyiniz 😈";
+        setTimeout(()=>{ rateMsg.textContent = ""; }, 1800);
+      });
     }
 
-    // İlk giriş konfeti (UZUN + YAVAŞ)
-    function launchConfettiSoft(){
-      const n = 120;
+    // İlk giriş konfeti (uzun/yavaş) - parametreli de yaptım
+    function launchConfettiSoft(count = 120){
+      const n = count;
       for(let i=0;i<n;i++){
         const s = document.createElement("div");
         s.style.position="fixed";
@@ -568,24 +607,27 @@ yazılıyor ❤️`;
         s.style.zIndex = 9997;
         document.body.appendChild(s);
 
-        const dur = 4200 + Math.random()*2200;   // ✅ daha uzun
+        const dur = 5200 + Math.random()*2600;  // daha uzun
         const drift = (Math.random()*2 - 1) * 180;
 
         s.animate([
           { transform:`translate(0,0) rotate(0deg)`, opacity:0.95 },
-          { transform:`translate(${drift}px, ${window.innerHeight+200}px) rotate(${720+Math.random()*720}deg)`, opacity:0.95 }
-        ], { duration: dur, easing:"linear" });  // ✅ daha yavaş hissi
+          { transform:`translate(${drift}px, ${window.innerHeight+220}px) rotate(${720+Math.random()*720}deg)`, opacity:0.95 }
+        ], { duration: dur, easing:"linear" });
 
         setTimeout(()=>s.remove(), dur+100);
       }
     }
 
-    // Kalp parçacıkları
+    // Kalp parçacıkları (kalp görünür olsa da olmasa da, element var)
     function initHeartSparks(){
       const heart = document.getElementById("heroHeart");
       if(!heart) return;
 
       function burst(){
+        // kalp gizliyse boşuna basma
+        if(heart.classList.contains("hidden")) return;
+
         const rect = heart.getBoundingClientRect();
         const baseX = rect.left + rect.width/2;
         const baseY = rect.top + rect.height/2;
@@ -623,7 +665,6 @@ yazılıyor ❤️`;
       heart.addEventListener("click", burst);
     }
 
-    // Büyük konfeti (Evet'e basınca)
     function launchConfetti(){
       const n = 160;
       for(let i=0;i<n;i++){
@@ -654,7 +695,3 @@ yazılıyor ❤️`;
   </script>
 </body>
 </html>
-
-
-
-
