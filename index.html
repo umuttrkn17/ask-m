@@ -253,6 +253,20 @@
       .hero-heart{width:250px; height:230px;}
       .goodbad-title{font-size:20px;}
     }
+    .tl-photo{
+  margin-top:10px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.06);
+}
+
+.tl-photo img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+}
+
   </style>
 </head>
 
@@ -498,61 +512,71 @@ seninle yazılıyor ❤️`;
     icon:"01",
     title:"İlk tanışma",
     date:"01.01.2026",
-    desc:"Soğuk bir Uşak akşamı… Soulmate’te göz göze geldik. Belki kimse fark etmedi ama benim için her şey o anda başladı ✨"
+    desc:"Soğuk bir Uşak akşamı… Soulmate’te göz göze geldik. Belki kimse fark etmedi ama benim için her şey o anda başladı ✨",
+    photo:"img/gun01.jpeg"
   },
   {
     icon:"02",
     title:"İlk buluşma",
     date:"02.01.2026",
-    desc:"Zaman su gibi aktı. Konuşmaya doyamadık, ayrılırken bile içimden hep biraz daha kalsak geçti 😊"
+    desc:"Zaman su gibi aktı. Konuşmaya doyamadık, ayrılırken bile içimden hep biraz daha kalsak geçti 😊",
+    photo:"img/gun02.jpeg"
   },
   {
     icon:"08",
     title:"Sosyal tesis & kahve",
     date:"08.01.2026",
-    desc:"Önce sosyal tesiste yemeğimizi yedik, sonra kahve içtik. Ama en güzel tat ne yemekteydi ne kahvede… senin yanımda olmandı ☕️❤️"
+    desc:"Önce sosyal tesiste yemeğimizi yedik, sonra kahve içtik. Ama en güzel tat ne yemekteydi ne kahvede… senin yanımda olmandı ☕️❤️",
+    photo:"img/gun08.jpeg"
   },
   {
     icon:"09",
     title:"Türk kahvesi",
     date:"09.01.2026",
-    desc:"O gece içiyodum sonra delale geldik.Eminle sende bize kendi ellerinle içine sevgi katılmış türk kahvesi yaptın askımm."
+    desc:"O gece içiyodum sonra delale geldik.Eminle sende bize kendi ellerinle içine sevgi katılmış türk kahvesi yaptın askımm.",
+    photo:"img/gun09.jpeg"
   },
   {
     icon:"10",
     title:"Toplu kahve",
     date:"10.01.2026",
-    desc:"Arkadaşlarla kalabalık bir masadaydık ama benim dikkatim hep sendeydi. Gözüm sürekli seni aradı 🤍"
+    desc:"Arkadaşlarla kalabalık bir masadaydık ama benim dikkatim hep sendeydi. Gözüm sürekli seni aradı 🤍",
+    photo:"img/gun10.jpeg"
   },
   {
     icon:"11",
     title:"Yemek date",
     date:"11.01.2026",
-    desc:"Makarna, Türk kahvesi ve tavla… ama gecenin kazananı bendim çünkü sen yanımdasın 😎❤️"
+    desc:"Makarna, Türk kahvesi ve tavla… ama gecenin kazananı bendim çünkü sen yanımdasın 😎❤️",
+    photo:"img/gun11.jpeg"
   },
   {
     icon:"12",
     title:"Açılma günü",
     date:"12.01.2026",
-    desc:"Kalbim yerinden çıkacak gibiydi. “Biz olalım mı?” dedim… sen evet dedin. İşte o an dünya durdu 💐❤️"
+    desc:"Kalbim yerinden çıkacak gibiydi. “Biz olalım mı?” dedim… sen evet dedin. İşte o an dünya durdu 💐❤️",
+    photo:"img/gun12.jpeg"
   },
   {
     icon:"14",
     title:"Lego günü",
-    date:"15.01.2026",
-    desc:"Erik Çiçeği eşliğinde lego yaptık. Çocuk gibi eğlendik, çocuk gibi mutlu olduk 🧩🌸"
+    date:"14.01.2026",
+    desc:"Erik Çiçeği eşliğinde lego yaptık. Çocuk gibi eğlendik, çocuk gibi mutlu olduk 🧩🌸",
+    photo:"img/gun14.jpeg"
   },
   {
     icon:"15",
     title:"Lego günü",
     date:"15.01.2026",
-    desc:"Erik Çiçeği eşliğinde lego yaptık. Çocuk gibi eğlendik, çocuk gibi mutlu olduk 🧩🌸"
+    desc:"Erik Çiçeği eşliğinde lego yaptık. Çocuk gibi eğlendik, çocuk gibi mutlu olduk 🧩🌸",
+    photo:"img/gun15.jpeg"
   },
   {
     icon:"∞",
     title:"Devamı…",
     date:"",
-    desc:"Bu sadece başlangıç. Daha birlikte yazacağımız koca bir hikâye var askımmm❤️"
+    desc:"Bu sadece başlangıç. Daha birlikte yazacağımız koca bir hikâye var askımmm❤️",
+    photo:"img/guns.jpeg"
   }
 ];
 
@@ -720,7 +744,13 @@ seninle yazılıyor ❤️`;
           <div class="badge">${e.icon}</div>
           <div>
             <div style="font-weight:900">${e.title}</div>
-            <div class="muted" style="margin-top:2px">${e.desc}</div>
+            <div class="muted" style="margin-top:4px">${e.desc}</div>
+
+${e.photo ? `
+  <div class="tl-photo">
+    <img src="${e.photo}" alt="">
+  </div>
+` : ``}
           </div>
         `;
         tl.appendChild(item);
@@ -906,5 +936,6 @@ seninle yazılıyor ❤️`;
   </script>
 </body>
 </html>
+
 
 
