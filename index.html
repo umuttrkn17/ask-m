@@ -559,14 +559,14 @@ seninle yazılıyor ❤️`;
   icon:"14",
   title:"Doğum günü etkinliği",
   date:"14.01.2026",
-  desc:"Bir arkadaşın doğum günüydü. Kalabalık vardı, gülüşler vardı… ama benim için gecenin en güzel yanı seninle yan yana olmaktı. Yurt saatin erken olduğu için sonra seni yurda götürdüm. Yol kısa sürdü belki ama içimdeki his uzun süre kaldı: seninle geçen her an çok kıymetli 🤍",
+  desc:"Yiğenlerimin doğum günüydü. Kalabalık vardı, gülüşler vardı… ama benim için gecenin en güzel yanı seninle yan yana olmaktı. Yurt saatin erken olduğu için sonra seni yurda götürdüm. Yol kısa sürdü belki ama içimdeki his uzun süre kaldı: seninle geçen her an çok kıymetli 🤍",
   photo:"img/gun14.jpeg"
 },
 {
   icon:"15",
   title:"Lego günü",
   date:"15.01.2026",
-  desc:"Erik Çiçeği çalarken lego yaptık. Küçük parçalarla kocaman mutluluklar kurduk. Sen gülerken ben dünyayı unuttum. O gün çocuk gibi eğlendik, çocuk gibi saf ve gerçek mutluyduk 🧩🌸",
+  desc:"Erik Çiçeği  legosu yaptık. Küçük parçalarla kocaman mutluluklar kurduk. Sen gülerken ben dünyayı unuttum. O gün çocuk gibi eğlendik, çocuk gibi saf ve gerçek mutluyduk 🧩🌸",
   photo:"img/gun15.jpeg"
 },
 {
@@ -806,29 +806,31 @@ ${e.photo ? `
     }
 
     // Soru (Evet/Hayır)
-    function initQuestion(){
-      const btnYes = document.getElementById("btnYes");
-      const btnNo  = document.getElementById("btnNo");
-      const noHint = document.getElementById("noHint");
+function initQuestion(){
+  const btnYes = document.getElementById("btnYes");
+  const btnNo  = document.getElementById("btnNo");
+  const noHint = document.getElementById("noHint");
 
-      btnYes.addEventListener("click", ()=>{
-        launchConfettiBig();
-        alert("Artık resmen benim sevgilimsin… aşkımızın sonsuza kadar sürmesi dileğiyle 💍❤️");
-      });
+  // ✅ yazı direkt görünsün
+  noHint.style.display = "block";
 
-      function kac(){
-        noHint.style.display = "block";
-        const maxX = Math.max(20, window.innerWidth - 160);
-        const maxY = Math.max(20, window.innerHeight - 140);
-        btnNo.style.left = Math.floor(Math.random()*maxX) + "px";
-        btnNo.style.top  = Math.floor(Math.random()*maxY) + "px";
-      }
+  btnYes.addEventListener("click", ()=>{
+    launchConfettiBig();
+    alert("Artık resmen benim sevgilimsin… aşkımızın sonsuza kadar sürmesi dileğiyle 💍❤️");
+  });
 
-      btnNo.addEventListener("mouseover", kac);
-      btnNo.addEventListener("touchstart", (e)=>{ e.preventDefault(); kac(); }, {passive:false});
-      btnNo.style.position = "absolute";
-    }
+  function kac(){
+    // noHint artık zaten açık, burada ellemesek de olur
+    const maxX = Math.max(20, window.innerWidth - 160);
+    const maxY = Math.max(20, window.innerHeight - 140);
+    btnNo.style.left = Math.floor(Math.random()*maxX) + "px";
+    btnNo.style.top  = Math.floor(Math.random()*maxY) + "px";
+  }
 
+  btnNo.addEventListener("mouseover", kac);
+  btnNo.addEventListener("touchstart", (e)=>{ e.preventDefault(); kac(); }, {passive:false});
+  btnNo.style.position = "absolute";
+}
     // Müzik
     function initMusic(){
       musicBtn.addEventListener("click", async ()=>{
@@ -953,6 +955,7 @@ ${e.photo ? `
   </script>
 </body>
 </html>
+
 
 
 
